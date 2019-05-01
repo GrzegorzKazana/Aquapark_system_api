@@ -8,10 +8,11 @@ namespace AquaparkSystemApi.Controllers
 {
     public class HomeController : Controller
     {
+        AquaparkDbContext dbContext = new AquaparkDbContext();
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            dbContext.Orders.Select(i => i);
             return View();
         }
     }
