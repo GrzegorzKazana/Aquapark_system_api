@@ -181,7 +181,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
@@ -242,6 +245,10 @@
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
     <Compile Include="Models\Dtos\AttractionPrimaryInformationDto.cs" />
+    <Compile Include="Models\Dtos\PeriodicDiscountDto.cs" />
+    <Compile Include="Models\Dtos\SocialClassDiscountDto.cs" />
+    <Compile Include="Models\Dtos\TicketDto.cs" />
+    <Compile Include="Models\Dtos\TicketTypeDto.cs" />
     <Compile Include="Models\Dtos\UserEditedPersonalDataDto.cs" />
     <Compile Include="Models\Dtos\UserLoggedInDto.cs" />
     <Compile Include="Models\Dtos\UserRegisteredDto.cs" />
