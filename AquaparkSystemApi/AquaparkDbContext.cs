@@ -17,6 +17,14 @@ namespace AquaparkSystemApi
         public DbSet<Order> Orders { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Attraction> Attractions { get; set; }
+        public DbSet<AttractionHistory> AttractionHistories { get; set; }
+        public DbSet<PeriodicDiscount> PeriodicDiscounts { get; set; }
+        public DbSet<SocialClassDiscount> SocialClassDiscounts { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Zone> Zones { get; set; }
+        public DbSet<ZoneHistory> ZoneHistories { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

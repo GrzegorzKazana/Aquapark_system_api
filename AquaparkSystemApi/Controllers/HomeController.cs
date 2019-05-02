@@ -12,7 +12,6 @@ namespace AquaparkSystemApi.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            dbContext.Orders.Select(i => i);
             return View();
         }
     }
