@@ -9,8 +9,7 @@ namespace AquaparkSystemApi.Models
         [StringLength(30)]
         public string Name { get; set; }
         public decimal Price { get; set; }
-        [StringLength(30)]
-        public string Type { get; set; }
         public Zone Zone { get; set; }
+        public TicketType TicketType { get; set; }
     }
 }

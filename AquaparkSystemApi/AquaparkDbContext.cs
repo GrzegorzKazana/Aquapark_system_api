@@ -24,6 +24,7 @@ namespace AquaparkSystemApi
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Zone> Zones { get; set; }
         public DbSet<ZoneHistory> ZoneHistories { get; set; }
+        public DbSet<TicketType> TicketTypes { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

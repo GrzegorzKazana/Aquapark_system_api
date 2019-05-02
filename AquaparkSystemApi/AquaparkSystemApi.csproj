@@ -213,6 +213,30 @@
     <Compile Include="Migrations\201905021700268_SeedZonesData.Designer.cs">
       <DependentUpon>201905021700268_SeedZonesData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905021725072_SeedAttractionsData.cs" />
+    <Compile Include="Migrations\201905021725072_SeedAttractionsData.Designer.cs">
+      <DependentUpon>201905021725072_SeedAttractionsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021741093_TicketTypeAdded.cs" />
+    <Compile Include="Migrations\201905021741093_TicketTypeAdded.Designer.cs">
+      <DependentUpon>201905021741093_TicketTypeAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021741539_SeedTicketTypesData.cs" />
+    <Compile Include="Migrations\201905021741539_SeedTicketTypesData.Designer.cs">
+      <DependentUpon>201905021741539_SeedTicketTypesData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021744421_TicketModelChanged.cs" />
+    <Compile Include="Migrations\201905021744421_TicketModelChanged.Designer.cs">
+      <DependentUpon>201905021744421_TicketModelChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021744536_SeedTicketsData.cs" />
+    <Compile Include="Migrations\201905021744536_SeedTicketsData.Designer.cs">
+      <DependentUpon>201905021744536_SeedTicketsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021748047_SeedNextTicketsData.cs" />
+    <Compile Include="Migrations\201905021748047_SeedNextTicketsData.Designer.cs">
+      <DependentUpon>201905021748047_SeedNextTicketsData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
@@ -227,6 +251,7 @@
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\SocialClassDiscount.cs" />
     <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketType.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Zone.cs" />
     <Compile Include="Models\ZoneHistory.cs" />
@@ -334,6 +359,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905021700268_SeedZonesData.resx">
       <DependentUpon>201905021700268_SeedZonesData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021725072_SeedAttractionsData.resx">
+      <DependentUpon>201905021725072_SeedAttractionsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021741093_TicketTypeAdded.resx">
+      <DependentUpon>201905021741093_TicketTypeAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021741539_SeedTicketTypesData.resx">
+      <DependentUpon>201905021741539_SeedTicketTypesData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021744421_TicketModelChanged.resx">
+      <DependentUpon>201905021744421_TicketModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021744536_SeedTicketsData.resx">
+      <DependentUpon>201905021744536_SeedTicketsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021748047_SeedNextTicketsData.resx">
+      <DependentUpon>201905021748047_SeedNextTicketsData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
