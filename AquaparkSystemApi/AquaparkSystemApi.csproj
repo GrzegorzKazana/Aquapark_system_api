@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="CustomHeaderHandler.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Global.asax.cs">
@@ -240,9 +241,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
+    <Compile Include="Models\Dtos\AttractionPrimaryInformationDto.cs" />
     <Compile Include="Models\Dtos\UserEditedPersonalDataDto.cs" />
     <Compile Include="Models\Dtos\UserLoggedInDto.cs" />
     <Compile Include="Models\Dtos\UserRegisteredDto.cs" />
+    <Compile Include="Models\Dtos\ZonePrimaryInformationDto.cs" />
+    <Compile Include="Models\Dtos\ZoneWithAttractionsInformationDto.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PassedParameters\UserToEditPersonalData.cs" />
     <Compile Include="Models\PassedParameters\UserToLogIn.cs" />
