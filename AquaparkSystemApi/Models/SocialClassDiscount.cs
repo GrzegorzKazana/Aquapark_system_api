@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AquaparkSystemApi.Models
 {
@@ -9,6 +6,7 @@ namespace AquaparkSystemApi.Models
     {
         public int Id { get; set; }
         public decimal Value { get; set; }
+        [StringLength(30)]
         public string SocialClassName { get; set; }
     }
 }

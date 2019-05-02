@@ -205,6 +205,14 @@
     <Compile Include="Migrations\201905021130485_TokenRemovedFromUser.Designer.cs">
       <DependentUpon>201905021130485_TokenRemovedFromUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905021659503_ModelsChanged.cs" />
+    <Compile Include="Migrations\201905021659503_ModelsChanged.Designer.cs">
+      <DependentUpon>201905021659503_ModelsChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021700268_SeedZonesData.cs" />
+    <Compile Include="Migrations\201905021700268_SeedZonesData.Designer.cs">
+      <DependentUpon>201905021700268_SeedZonesData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
@@ -320,6 +328,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905021130485_TokenRemovedFromUser.resx">
       <DependentUpon>201905021130485_TokenRemovedFromUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021659503_ModelsChanged.resx">
+      <DependentUpon>201905021659503_ModelsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021700268_SeedZonesData.resx">
+      <DependentUpon>201905021700268_SeedZonesData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

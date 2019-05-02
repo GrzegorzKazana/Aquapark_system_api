@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Web;
 
 namespace AquaparkSystemApi.Models
 {
