@@ -245,6 +245,7 @@
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
     <Compile Include="Models\Dtos\AttractionPrimaryInformationDto.cs" />
+    <Compile Include="Models\Dtos\OrderDto.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountDto.cs" />
     <Compile Include="Models\Dtos\TicketDto.cs" />
@@ -255,6 +256,8 @@
     <Compile Include="Models\Dtos\ZonePrimaryInformationDto.cs" />
     <Compile Include="Models\Dtos\ZoneWithAttractionsInformationDto.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PassedParameters\NewOrder.cs" />
+    <Compile Include="Models\PassedParameters\NewTicketWithClassDiscount.cs" />
     <Compile Include="Models\PassedParameters\UserToEditPersonalData.cs" />
     <Compile Include="Models\PassedParameters\UserToLogIn.cs" />
     <Compile Include="Models\PassedParameters\UserToRegister.cs" />
