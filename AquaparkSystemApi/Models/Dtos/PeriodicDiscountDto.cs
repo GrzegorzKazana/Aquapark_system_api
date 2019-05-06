@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Newtonsoft.Json;
 
 namespace AquaparkSystemApi.Models.Dtos
 {
     public class PeriodicDiscountDto
     {
         public int Id { get; set; }
-        public string StartTime { get; set; }
-        public string FinishTime { get; set; }
+        [JsonIgnore]
+        public DateTime StartTimeDate { get; set; }
+        [JsonIgnore]
+        public DateTime FinishTimeDate { get; set; }
+
+        public string StartTime => StartTimeDate.ToString("yyyy-MM-dd");
+        public string FinishTime => FinishTimeDate.ToString("yyyy-MM-dd");
         public decimal Value { get; set; }
 
     }

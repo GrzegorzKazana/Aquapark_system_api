@@ -66,10 +66,11 @@ namespace AquaparkSystemApi.Controllers
             string surname = "";
             bool success = false;
             string statusMessage = "";
+            bool isAdmin = false;
 
             try
             {
-                User user = _dbContext.Users.FirstOrDefault(i => i.Login == userToLogIn.Login);
+                User user = _dbContext.Users.FirstOrDefault(i => i.Email == userToLogIn.Email);
                 if (user == null)
                     throw new UserNotFoundException("There is no user with given data.");
 
@@ -78,7 +79,7 @@ namespace AquaparkSystemApi.Controllers
                 if (user.Password.Trim() == hashedPassword)
                 {
                     string generatedToken = Security.Security.GenerateToken(user.Email);
-                    if (!Security.Security.UserTokens.Any(i => i.Key == user.Id))
+                    if (Security.Security.UserTokens.All(i => i.Key != user.Id))
                     {
                         Security.Security.UserTokens.Add(user.Id, generatedToken);
                         userToken = generatedToken;
@@ -86,6 +87,7 @@ namespace AquaparkSystemApi.Controllers
                         surname = user.Surname;
                         success = true;
                         statusMessage = "";
+                        isAdmin = user.IsAdmin;
                     }
                 }
             }
@@ -102,7 +104,8 @@ namespace AquaparkSystemApi.Controllers
                 Name = name,
                 Surname = surname,
                 Success = success,
-                Status = statusMessage
+                Status = statusMessage,
+                IsAdmin = isAdmin
             };
         }
 

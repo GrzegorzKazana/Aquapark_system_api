@@ -7,7 +7,7 @@ namespace AquaparkSystemApi.Models
 
         public Position()
         {
-            this.Orders = new HashSet<Order>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }

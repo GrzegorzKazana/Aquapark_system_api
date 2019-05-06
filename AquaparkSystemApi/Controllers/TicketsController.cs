@@ -25,25 +25,24 @@ namespace AquaparkSystemApi.Controllers
                 ticketDtos = _dbContext.Tickets.Select(i => new TicketDto()
                 {
                     Id = i.Id,
-                    Number = i.Number,
                     Name = i.Name,
                     Price = i.Price,
+                    StartHour = i.StartHour,
+                    EndHour = i.EndHour,
+                    Days = i.Days,
+                    Months = i.Months,
                     Zone = new ZoneWithAttractionsInformationDto()
                         {
+                            ZoneId = i.Zone.Id,
                             Name = i.Zone.Name,
                             Attractions = _dbContext.Attractions.Where(j => j.Zone.Id == i.Zone.Id).
                                 Select(j =>
                                 new AttractionPrimaryInformationDto()
                                 {
-                                    Id = j.Id,
+                                    AttractionId = j.Id,
                                     Name = j.Name
                                 })
-                        },
-                    TicketType = new TicketTypeDto()
-                    {
-                        Id = i.TicketType.Id,
-                        Name = i.TicketType.Name
-                    }
+                        }
 
                 }).ToList();
             }

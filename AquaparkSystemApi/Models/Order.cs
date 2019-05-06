@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace AquaparkSystemApi.Models
 {
-    public class Order
+    public sealed class Order
     {
         public Order()
         {
-            this.Positions = new HashSet<Position>();
+            Positions = new HashSet<Position>();
         }
         public int Id { get; set; }
         public DateTime DateOfOrder { get; set; }
-        public virtual ICollection<Position> Positions { get; set; }
+        public ICollection<Position> Positions { get; set; }
+        public UserData UserData { get; set; }
 
     }
 }

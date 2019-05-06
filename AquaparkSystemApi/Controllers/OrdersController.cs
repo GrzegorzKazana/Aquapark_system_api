@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
@@ -51,7 +49,7 @@ namespace AquaparkSystemApi.Controllers
                         {
                             Number = item.NumberOfTickets,
                             SocialClassDiscount = _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
-                            Ticket = _dbContext.Tickets.Include(i=> i.Zone).Include(i=> i.TicketType).FirstOrDefault(i => i.Id == item.TicketId),
+                            Ticket = _dbContext.Tickets.Include(i=> i.Zone).FirstOrDefault(i => i.Id == item.TicketId),
                             PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i => i.StartTime >= DateTime.Now &&
                                                                                                 i.FinishTime <= DateTime.Now)
                         });
@@ -60,7 +58,13 @@ namespace AquaparkSystemApi.Controllers
                     Order order = new Order()
                     {
                         DateOfOrder = DateTime.Now,
-                        Positions = positionsToOrder
+                        Positions = positionsToOrder,
+                        UserData = new UserData()
+                        {
+                            Email = newOrder.UserData.Email,
+                            Name = newOrder.UserData.Name,
+                            Surname = newOrder.UserData.Surname
+                        }
                     };
                     user.Orders.Add(order);
                     _dbContext.SaveChanges();
@@ -77,19 +81,15 @@ namespace AquaparkSystemApi.Controllers
                         Price = i.Ticket.Price,
                         Zone = new ZoneWithAttractionsInformationDto()
                         {
+                            ZoneId = i.Ticket.Zone.Id,
                             Name = i.Ticket.Zone.Name,
                             Attractions = _dbContext.Attractions.Where(j => j.Zone.Id == i.Ticket.Zone.Id).
                                 Select(j =>
                                     new AttractionPrimaryInformationDto()
                                     {
-                                        Id = j.Id,
+                                        AttractionId = j.Id,
                                         Name = j.Name
                                     })
-                        },
-                        TicketType = new TicketTypeDto()
-                        {
-                            Id = i.Ticket.TicketType.Id,
-                            Name = i.Ticket.TicketType.Name
                         }
                     });
                     orderDto.OrderId = order.Id;

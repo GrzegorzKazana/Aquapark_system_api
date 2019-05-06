@@ -25,8 +25,8 @@ namespace AquaparkSystemApi.Controllers
                 periodicDiscountDtos = _dbContext.PeriodicDiscounts.Select(i => new PeriodicDiscountDto()
                 {
                      Id = i.Id,
-                     StartTime = i.StartTime.ToString("yyyy-MM-dd;HH-mm"),
-                     FinishTime = i.FinishTime.ToString("yyyy-MM-dd;HH-mm"),
+                     StartTimeDate = i.StartTime,
+                     FinishTimeDate = i.FinishTime,
                      Value = i.Value
                 }).ToList();
             }
