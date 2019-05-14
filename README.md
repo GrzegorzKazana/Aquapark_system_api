@@ -1,6 +1,7 @@
 # Aquapark_system_api
 
-School, team project.
+School project.
+ASP.NET Web Api with Entity Framework 6
 Readme will be written soon! ^^
 
 Front end of the project:
