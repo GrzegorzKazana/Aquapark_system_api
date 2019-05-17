@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
 
@@ -18,17 +19,34 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddSocialClassDiscounts")]
-        public IEnumerable<SocialClassDiscountDto> AddSocialClassDiscounts(IEnumerable<SocialClassDiscount> socialClassDiscounts)
+        public IEnumerable<SocialClassDiscountDto> AddSocialClassDiscounts(SocialClassDiscountCollectionDto socialClassDiscountCollectionDto)
         {
+            var socialClassDiscounts = socialClassDiscountCollectionDto.SocialClassDiscounts;
+
             try
             {
-                _dbContext.Positions.ToList().ForEach(x => x.SocialClassDiscount = null);
+                if (Security.Security.UserTokens.Any(i => i.Value == socialClassDiscountCollectionDto.UserToken))
+                {
+                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == socialClassDiscountCollectionDto.UserToken).Key;
 
-                _dbContext.SaveChanges();
+                    var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("There is no user with given data.");
+                    }
 
-                _dbContext.SocialClassDiscounts.RemoveRange(_dbContext.SocialClassDiscounts);
-                _dbContext.SocialClassDiscounts.AddRange(socialClassDiscounts);
-                _dbContext.SaveChanges();
+                    _dbContext.Positions.ToList().ForEach(x => x.SocialClassDiscount = null);
+
+                    _dbContext.SaveChanges();
+
+                    _dbContext.SocialClassDiscounts.RemoveRange(_dbContext.SocialClassDiscounts);
+                    _dbContext.SocialClassDiscounts.AddRange(socialClassDiscounts);
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("User identification failed.");
+                }
             }
             catch (Exception)
             {
@@ -40,17 +58,34 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddPeriodicDiscounts")]
-        public IEnumerable<PeriodicDiscountDto> AddPeriodicDiscounts(IEnumerable<PeriodicDiscount> periodicDiscounts)
+        public IEnumerable<PeriodicDiscountDto> AddPeriodicDiscounts(PeriodicDiscountCollectionDto periodicDiscountCollectionDto)
         {
+            var periodicDiscounts = periodicDiscountCollectionDto.PeriodicDiscounts;
+
             try
             {
-                _dbContext.Tickets.ToList().ForEach(x => x.PeriodicDiscount = null);
-                _dbContext.Positions.ToList().ForEach(x => x.PeriodicDiscount = null);
-                _dbContext.SaveChanges();
+                if (Security.Security.UserTokens.Any(i => i.Value == periodicDiscountCollectionDto.UserToken))
+                {
+                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == periodicDiscountCollectionDto.UserToken).Key;
 
-                _dbContext.PeriodicDiscounts.RemoveRange(_dbContext.PeriodicDiscounts);
-                _dbContext.PeriodicDiscounts.AddRange(periodicDiscounts);
-                _dbContext.SaveChanges();
+                    var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("There is no user with given data.");
+                    }
+
+                    _dbContext.Tickets.ToList().ForEach(x => x.PeriodicDiscount = null);
+                    _dbContext.Positions.ToList().ForEach(x => x.PeriodicDiscount = null);
+                    _dbContext.SaveChanges();
+
+                    _dbContext.PeriodicDiscounts.RemoveRange(_dbContext.PeriodicDiscounts);
+                    _dbContext.PeriodicDiscounts.AddRange(periodicDiscounts);
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("User identification failed.");
+                }
             }
             catch (Exception)
             {
@@ -69,10 +104,10 @@ namespace AquaparkSystemApi.Controllers
             {
                 periodicDiscountDtos = _dbContext.PeriodicDiscounts.Select(i => new PeriodicDiscountDto()
                 {
-                     Id = i.Id,
-                     StartTimeDate = i.StartTime,
-                     FinishTimeDate = i.FinishTime,
-                     Value = i.Value
+                    Id = i.Id,
+                    StartTimeDate = i.StartTime,
+                    FinishTimeDate = i.FinishTime,
+                    Value = i.Value
                 }).ToList();
             }
             catch (Exception)

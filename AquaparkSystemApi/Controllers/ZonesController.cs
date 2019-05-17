@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
 
@@ -18,70 +19,87 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("AddZonesWithTickets")]
-        public IEnumerable<ZoneWithTicketsDto> AddZonesWithTickets(IEnumerable<ZoneWithTicketsDto> zonesWithTickets)
+        public IEnumerable<ZoneWithTicketsDto> AddZonesWithTickets(ZoneWithTicketsCollectionDto zoneWithTicketsCollectionDto)
         {
+            var zonesWithTickets = zoneWithTicketsCollectionDto.ZonesWithTicketsDto;
+
             try
             {
-                // remove Zone references
-
-                _dbContext.Attractions.ToList().ForEach(x => x.Zone = null);
-                _dbContext.ZoneHistories.ToList().ForEach(x => x.Zone = null);
-                _dbContext.Tickets.ToList().ForEach(x => x.Zone = null);
-                _dbContext.SaveChanges();
-
-                // remove Ticket references
-
-                _dbContext.Positions.ToList().ForEach(x => x.Ticket = null);
-                _dbContext.SaveChanges();
-
-                // remove all records from Zone and Ticket table
-
-                _dbContext.Zones.RemoveRange(_dbContext.Zones);
-                _dbContext.Tickets.RemoveRange(_dbContext.Tickets);
-                _dbContext.SaveChanges();
-
-                // Add new records to Zone table
-
-                var zones = zonesWithTickets.Select(x => new Zone()
+                if (Security.Security.UserTokens.Any(i => i.Value == zoneWithTicketsCollectionDto.UserToken))
                 {
-                    Name = x.ZoneName
-                });
-                _dbContext.Zones.AddRange(zones);
-                _dbContext.SaveChanges();
+                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == zoneWithTicketsCollectionDto.UserToken).Key;
 
-                // Add new records to Ticket table
+                    var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("There is no user with given data.");
+                    }
 
-                var tickets = new List<Ticket>();
-                zonesWithTickets
-                    .ToList()
-                    .ForEach(z => z.TicketTypes
+                    // remove Zone references
+
+                    _dbContext.Attractions.ToList().ForEach(x => x.Zone = null);
+                    _dbContext.ZoneHistories.ToList().ForEach(x => x.Zone = null);
+                    _dbContext.Tickets.ToList().ForEach(x => x.Zone = null);
+                    _dbContext.SaveChanges();
+
+                    // remove Ticket references
+
+                    _dbContext.Positions.ToList().ForEach(x => x.Ticket = null);
+                    _dbContext.SaveChanges();
+
+                    // remove all records from Zone and Ticket table
+
+                    _dbContext.Zones.RemoveRange(_dbContext.Zones);
+                    _dbContext.Tickets.RemoveRange(_dbContext.Tickets);
+                    _dbContext.SaveChanges();
+
+                    // Add new records to Zone table
+
+                    var zones = zonesWithTickets.Select(x => new Zone()
+                    {
+                        Name = x.ZoneName
+                    });
+                    _dbContext.Zones.AddRange(zones);
+                    _dbContext.SaveChanges();
+
+                    // Add new records to Ticket table
+
+                    var tickets = new List<Ticket>();
+                    zonesWithTickets
                         .ToList()
-                        .ForEach(t => tickets.Add(new Ticket()
-                        {
-                            Name = t.TicketTypeName,
-                            Price = t.Price,
-                            Zone = _dbContext.Zones
-                                    .Where(j => j.Name == z.ZoneName)
-                                    .FirstOrDefault()
-                                    ?? new Zone()
+                        .ForEach(z => z.TicketTypes
+                            .ToList()
+                            .ForEach(t => tickets.Add(new Ticket()
+                            {
+                                Name = t.TicketTypeName,
+                                Price = t.Price,
+                                Zone = _dbContext.Zones
+                                        .Where(j => j.Name == z.ZoneName)
+                                        .FirstOrDefault()
+                                        ?? new Zone()
+                                        {
+                                            Name = z.ZoneName
+                                        },
+                                PeriodicDiscount = t.PeriodDiscount == null
+                                    ? null : new PeriodicDiscount()
                                     {
-                                        Name = z.ZoneName
+                                        StartTime = t.PeriodDiscount.StartTimeDate,
+                                        FinishTime = t.PeriodDiscount.FinishTimeDate,
+                                        Value = t.PeriodDiscount.Value
                                     },
-                            PeriodicDiscount = t.PeriodDiscount == null
-                                ? null : new PeriodicDiscount()
-                                {
-                                    StartTime = t.PeriodDiscount.StartTimeDate,
-                                    FinishTime = t.PeriodDiscount.FinishTimeDate,
-                                    Value = t.PeriodDiscount.Value
-                                },
-                            StartHour = t.StartHour,
-                            EndHour = t.EndHour,
-                            Days = t.Days,
-                            Months = t.Months
-                        })
-                        ));
-                _dbContext.Tickets.AddRange(tickets);
-                _dbContext.SaveChanges();
+                                StartHour = t.StartHour,
+                                EndHour = t.EndHour,
+                                Days = t.Days,
+                                Months = t.Months
+                            })
+                            ));
+                    _dbContext.Tickets.AddRange(tickets);
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("User identification failed.");
+                }
             }
             catch (Exception)
             {
@@ -90,7 +108,6 @@ namespace AquaparkSystemApi.Controllers
 
             return this.GetAllZonesWithTickets();
         }
-
 
         [AcceptVerbs("GET")]
         [ActionName("GetAllZones")]

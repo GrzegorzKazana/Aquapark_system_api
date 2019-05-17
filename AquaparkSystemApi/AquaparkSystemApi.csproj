@@ -270,7 +270,10 @@
       <DependentUpon>201905062012254_SeedTicketsData2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
+    <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\UserDataDto.cs" />
+    <Compile Include="Models\Dtos\ZoneWithTicketsCollectionDto.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
