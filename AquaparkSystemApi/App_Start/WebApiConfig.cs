@@ -27,6 +27,7 @@ namespace AquaparkSystemApi
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
+            config.MessageHandlers.Add(new CustomHeaderHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
