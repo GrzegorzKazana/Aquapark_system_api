@@ -25,8 +25,8 @@ namespace AquaparkSystemApi
             //config.UseCors(CorsOptions.AllowAll);
             //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "GET,POST");
             //config.EnableCors(cors);
-            var CorsAttribute = new EnableCorsAttribute("* ", "* ", "* ");
-            config.EnableCors(CorsAttribute);
+           // var CorsAttribute = new EnableCorsAttribute("* ", "* ", "* ");
+            config.EnableCors();
 
             //config.EnableCors(CorsOpt);
             //
