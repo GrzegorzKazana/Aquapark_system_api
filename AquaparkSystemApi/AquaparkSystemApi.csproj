@@ -284,6 +284,22 @@
     <Compile Include="Migrations\201905251515062_SeedSocialClassDiscounts.Designer.cs">
       <DependentUpon>201905251515062_SeedSocialClassDiscounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905251956016_OrderAddedToPosition.cs" />
+    <Compile Include="Migrations\201905251956016_OrderAddedToPosition.Designer.cs">
+      <DependentUpon>201905251956016_OrderAddedToPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905252001004_UserAddedToOrder.cs" />
+    <Compile Include="Migrations\201905252001004_UserAddedToOrder.Designer.cs">
+      <DependentUpon>201905252001004_UserAddedToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905252011173_OrderAndPositionFixed.cs" />
+    <Compile Include="Migrations\201905252011173_OrderAndPositionFixed.Designer.cs">
+      <DependentUpon>201905252011173_OrderAndPositionFixed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905252013025_OrderAndPositionFixedPart2.cs" />
+    <Compile Include="Migrations\201905252013025_OrderAndPositionFixedPart2.Designer.cs">
+      <DependentUpon>201905252013025_OrderAndPositionFixedPart2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
@@ -470,6 +486,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905251515062_SeedSocialClassDiscounts.resx">
       <DependentUpon>201905251515062_SeedSocialClassDiscounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251956016_OrderAddedToPosition.resx">
+      <DependentUpon>201905251956016_OrderAddedToPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252001004_UserAddedToOrder.resx">
+      <DependentUpon>201905252001004_UserAddedToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252011173_OrderAndPositionFixed.resx">
+      <DependentUpon>201905252011173_OrderAndPositionFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252013025_OrderAndPositionFixedPart2.resx">
+      <DependentUpon>201905252013025_OrderAndPositionFixedPart2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

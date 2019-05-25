@@ -13,6 +13,7 @@ namespace AquaparkSystemApi.Models
         public DateTime DateOfOrder { get; set; }
         public ICollection<Position> Positions { get; set; }
         public UserData UserData { get; set; }
+        public User User { get; set; }
 
     }
 }

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
+using AquaparkSystemApi.Models.PassedParameters;
 
 namespace AquaparkSystemApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EntriesController : ApiController
     {
         private AquaparkDbContext _dbContext;
@@ -19,23 +22,36 @@ namespace AquaparkSystemApi.Controllers
             _dbContext = new AquaparkDbContext();
         }
         [AcceptVerbs("POST")]
-        [ActionName("AddZonesWithTickets")]
-        public void NoticeNewZoneEntry(ZoneWithTicketsCollectionDto zoneWithTicketsCollectionDto)
+        [ActionName("NoticeNewZoneEntry")]
+        public void NoticeNewZoneEntry(ZoneEntry zoneEntry)
         {
 
             try
             {
-                if (Security.Security.UserTokens.Any(i => i.Value == zoneWithTicketsCollectionDto.UserToken))
+                if (Security.Security.UserTokens.Any(i => i.Value == zoneEntry.UserToken) || zoneEntry.UserToken == string.Empty)
                 {
-                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == zoneWithTicketsCollectionDto.UserToken).Key;
-
-                    var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
-                    if (user == null)
+                    List<Position> userPositions = new List<Position>();
+                    int userId = -1;
+                    if (zoneEntry.UserToken != string.Empty)
                     {
-                        throw new UserNotFoundException("There is no user with given data.");
+                        userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == zoneEntry.UserToken).Key;
+                        var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                        if (user == null)
+                        {
+                            throw new UserNotFoundException("There is no user with given data.");
+                        }
+
+                        userPositions = _dbContext.Orders.Where(i => i.User.Id == userId).SelectMany(i => i.Positions)
+                            .ToList();
                     }
-
-
+                    else
+                    {
+                        var asd = _dbContext.Orders.Where(i => i.UserData.Email == zoneEntry.Email).ToList();
+                        userPositions = _dbContext.Orders.Where(i => i.UserData.Email == zoneEntry.Email)
+                            .SelectMany(i => i.Positions).ToList();
+                    }
+                    
+                    
                     
                 }
                 else

@@ -49,25 +49,9 @@ namespace AquaparkSystemApi.Controllers
                     }
                     
 
-
-
-                    List<Position> positionsToOrder = new List<Position>();
-                    foreach (var item in newOrder.TicketsWithClassDiscounts)
-                    {
-                        positionsToOrder.Add(new Position()
-                        {
-                            Number = item.NumberOfTickets,
-                            SocialClassDiscount = _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
-                            Ticket = _dbContext.Tickets.Include(i=> i.Zone).FirstOrDefault(i => i.Id == item.TicketTypeId),
-                            PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i => i.StartTime >= DateTime.Now &&
-                                                                                                i.FinishTime <= DateTime.Now)
-                        });
-                    }
-
                     Order order = new Order()
                     {
                         DateOfOrder = DateTime.Now,
-                        Positions = positionsToOrder,
                         UserData = new UserData()
                         {
                             Email = newOrder.UserData.Email,
@@ -82,6 +66,25 @@ namespace AquaparkSystemApi.Controllers
                     else
                     {
                         user.Orders.Add(order);
+                    }
+
+                    List<Position> positionsToOrder = new List<Position>();
+                    foreach (var item in newOrder.TicketsWithClassDiscounts)
+                    {
+                        Position position = new Position()
+                        {
+
+                            Number = item.NumberOfTickets,
+                            SocialClassDiscount =
+                                _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
+                            Ticket = _dbContext.Tickets.Include(i => i.Zone)
+                                .FirstOrDefault(i => i.Id == item.TicketTypeId),
+                            PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i =>
+                                i.StartTime >= DateTime.Now &&
+                                i.FinishTime <= DateTime.Now)
+                        };
+                        positionsToOrder.Add(position);
+                        order.Positions.Add(position);
                     }
 
                     _dbContext.SaveChanges();
