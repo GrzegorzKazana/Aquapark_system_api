@@ -289,7 +289,7 @@
     <Compile Include="Models\Dtos\UserDataDto.cs" />
     <Compile Include="Models\Dtos\UserLoggedOutDto.cs" />
     <Compile Include="Models\Dtos\ZoneWithTicketsCollectionDto.cs" />
-    <Compile Include="Models\PassedParameters\UserToLogOut.cs" />
+    <Compile Include="Models\PassedParameters\TokenOfUser.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />

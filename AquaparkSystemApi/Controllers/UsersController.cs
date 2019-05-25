@@ -114,7 +114,7 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("LogOut")]
-        public UserLoggedOutDto LogOut(UserToLogOut user)
+        public UserLoggedOutDto LogOut(TokenOfUser user)
         {
             bool success = false;
             string statusMessage = "";
