@@ -1,6 +1,7 @@
 ﻿using AquaparkSystemApi.Models.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -21,6 +22,10 @@ namespace AquaparkSystemApi.Controllers
         [ActionName("GetAllTickets")]
         public IEnumerable<TicketDto> GetAllTickets()
         {
+                foreach (var entity in _dbContext.ChangeTracker.Entries())
+                {
+                    entity.Reload();
+                }
             List<TicketDto> ticketDtos = new List<TicketDto>();
             try
             {

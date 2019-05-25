@@ -81,7 +81,8 @@ namespace AquaparkSystemApi.Controllers
                                 .FirstOrDefault(i => i.Id == item.TicketTypeId),
                             PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i =>
                                 i.StartTime >= DateTime.Now &&
-                                i.FinishTime <= DateTime.Now)
+                                i.FinishTime <= DateTime.Now),
+                            CanBeUsed = true
                         };
                         positionsToOrder.Add(position);
                         order.Positions.Add(position);

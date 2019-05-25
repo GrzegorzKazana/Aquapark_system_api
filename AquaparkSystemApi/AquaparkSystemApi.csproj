@@ -300,6 +300,14 @@
     <Compile Include="Migrations\201905252013025_OrderAndPositionFixedPart2.Designer.cs">
       <DependentUpon>201905252013025_OrderAndPositionFixedPart2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905252300421_CanBeUsedFieldAddedToPosition.cs" />
+    <Compile Include="Migrations\201905252300421_CanBeUsedFieldAddedToPosition.Designer.cs">
+      <DependentUpon>201905252300421_CanBeUsedFieldAddedToPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905252316549_HistoryClassesAttributesChanged.cs" />
+    <Compile Include="Migrations\201905252316549_HistoryClassesAttributesChanged.Designer.cs">
+      <DependentUpon>201905252316549_HistoryClassesAttributesChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
@@ -498,6 +506,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905252013025_OrderAndPositionFixedPart2.resx">
       <DependentUpon>201905252013025_OrderAndPositionFixedPart2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252300421_CanBeUsedFieldAddedToPosition.resx">
+      <DependentUpon>201905252300421_CanBeUsedFieldAddedToPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252316549_HistoryClassesAttributesChanged.resx">
+      <DependentUpon>201905252316549_HistoryClassesAttributesChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
