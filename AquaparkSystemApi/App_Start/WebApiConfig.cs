@@ -20,11 +20,9 @@ namespace AquaparkSystemApi
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
 
-            config.MessageHandlers.Add(new CustomHeaderHandler());
+            //config.MessageHandlers.Add(new CustomHeaderHandler());
             //config.EnableCors(new EnableCorsAttribute(Properties.Settings.Default.Cors, "", ""));
             //config.UseCors(CorsOptions.AllowAll);
-            //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "GET,POST");
-            //config.EnableCors(cors);
            // var CorsAttribute = new EnableCorsAttribute("* ", "* ", "* ");
             config.EnableCors();
 
