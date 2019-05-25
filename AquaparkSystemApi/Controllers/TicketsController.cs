@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AquaparkSystemApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TicketsController : ApiController
     {
         private AquaparkDbContext _dbContext;

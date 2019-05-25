@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
 
 namespace AquaparkSystemApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ZonesController : ApiController
     {
         private AquaparkDbContext _dbContext;
