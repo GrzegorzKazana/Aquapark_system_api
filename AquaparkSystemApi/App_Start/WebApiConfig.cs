@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -29,10 +30,12 @@ namespace AquaparkSystemApi
                 .Add(new MediaTypeHeaderValue("text/html"));
 
             config.MessageHandlers.Add(new CustomHeaderHandler());
-            //config.EnableCors(new EnableCorsAttribute(Properties.Settings.Default.Cors, "", ""))
+            //config.EnableCors(new EnableCorsAttribute(Properties.Settings.Default.Cors, "", ""));
             //config.UseCors(CorsOptions.AllowAll);
-            config.EnableCors();
-
+            EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "GET,POST");
+            config.EnableCors(cors);
+            //config.EnableCors(CorsOpt);
+            //
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{userToken}",
