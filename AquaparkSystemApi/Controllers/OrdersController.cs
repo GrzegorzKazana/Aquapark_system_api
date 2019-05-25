@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -36,13 +37,19 @@ namespace AquaparkSystemApi.Controllers
             try
             {
                 int userId;
-                if (Security.Security.UserTokens.Any(i => i.Value == newOrder.UserToken))
+                if (newOrder.UserToken == string.Empty || Security.Security.UserTokens.Any(i => i.Value == newOrder.UserToken))
                 {
-                    userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == newOrder.UserToken).Key;
+                    User user = null;
+                    if (newOrder.UserToken != string.Empty)
+                    {
+                        userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == newOrder.UserToken).Key;
+                        user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                        if (user == null)
+                            throw new UserNotFoundException("There is no user with given data.");
+                    }
+                    
 
-                    User user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
-                    if (user == null)
-                        throw new UserNotFoundException("There is no user with given data.");
+
 
                     List<Position> positionsToOrder = new List<Position>();
                     foreach (var item in newOrder.TicketsWithClassDiscounts)
@@ -51,7 +58,7 @@ namespace AquaparkSystemApi.Controllers
                         {
                             Number = item.NumberOfTickets,
                             SocialClassDiscount = _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
-                            Ticket = _dbContext.Tickets.Include(i=> i.Zone).FirstOrDefault(i => i.Id == item.TicketId),
+                            Ticket = _dbContext.Tickets.Include(i=> i.Zone).FirstOrDefault(i => i.Id == item.TicketTypeId),
                             PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i => i.StartTime >= DateTime.Now &&
                                                                                                 i.FinishTime <= DateTime.Now)
                         });
@@ -68,7 +75,15 @@ namespace AquaparkSystemApi.Controllers
                             Surname = newOrder.UserData.Surname
                         }
                     };
-                    user.Orders.Add(order);
+                    if (user == null)
+                    {
+                        _dbContext.Orders.Add(order);
+                    }
+                    else
+                    {
+                        user.Orders.Add(order);
+                    }
+
                     _dbContext.SaveChanges();
 
                     success = true;
@@ -85,13 +100,12 @@ namespace AquaparkSystemApi.Controllers
                         {
                             ZoneId = i.Ticket.Zone.Id,
                             Name = i.Ticket.Zone.Name,
-                            Attractions = _dbContext.Attractions.Where(j => j.Zone.Id == i.Ticket.Zone.Id).
-                                Select(j =>
-                                    new AttractionPrimaryInformationDto()
-                                    {
-                                        AttractionId = j.Id,
-                                        Name = j.Name
-                                    })
+                            Attractions = _dbContext.Attractions.Where(j => j.Zone.Id == i.Ticket.Zone.Id).Select(j =>
+                                new AttractionPrimaryInformationDto()
+                                {
+                                    AttractionId = j.Id,
+                                    Name = j.Name
+                                })
                         }
                     });
                     orderDto.OrderId = order.Id;

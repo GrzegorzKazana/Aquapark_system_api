@@ -26,6 +26,7 @@ namespace AquaparkSystemApi
            // var CorsAttribute = new EnableCorsAttribute("* ", "* ", "* ");
             config.EnableCors();
 
+
             //config.EnableCors(CorsOpt);
             //
             config.Routes.MapHttpRoute(

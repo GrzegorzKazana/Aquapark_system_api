@@ -188,6 +188,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
+    <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
@@ -289,7 +290,9 @@
     <Compile Include="Models\Dtos\UserDataDto.cs" />
     <Compile Include="Models\Dtos\UserLoggedOutDto.cs" />
     <Compile Include="Models\Dtos\ZoneWithTicketsCollectionDto.cs" />
+    <Compile Include="Models\PassedParameters\AttractionEntry.cs" />
     <Compile Include="Models\PassedParameters\TokenOfUser.cs" />
+    <Compile Include="Models\PassedParameters\ZoneEntry.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />
