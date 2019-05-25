@@ -6,7 +6,6 @@ namespace AquaparkSystemApi.Models
     {
 
         public int Id { get; set; }
-        public int Number { get; set; }
         public Ticket Ticket { get; set; }
         public PeriodicDiscount PeriodicDiscount { get; set; }
         public SocialClassDiscount SocialClassDiscount { get; set; }

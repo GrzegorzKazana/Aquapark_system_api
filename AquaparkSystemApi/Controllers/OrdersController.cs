@@ -5,6 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Optimization;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
@@ -71,21 +72,23 @@ namespace AquaparkSystemApi.Controllers
                     List<Position> positionsToOrder = new List<Position>();
                     foreach (var item in newOrder.TicketsWithClassDiscounts)
                     {
-                        Position position = new Position()
+                        for (int j = 0; j < item.NumberOfTickets; j++)
                         {
-
-                            Number = item.NumberOfTickets,
-                            SocialClassDiscount =
-                                _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
-                            Ticket = _dbContext.Tickets.Include(i => i.Zone)
-                                .FirstOrDefault(i => i.Id == item.TicketTypeId),
-                            PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i =>
-                                i.StartTime >= DateTime.Now &&
-                                i.FinishTime <= DateTime.Now),
-                            CanBeUsed = true
-                        };
-                        positionsToOrder.Add(position);
-                        order.Positions.Add(position);
+                            Position position = new Position()
+                            {
+                                
+                                SocialClassDiscount =
+                                    _dbContext.SocialClassDiscounts.FirstOrDefault(i => i.Id == item.SocialClassDiscountId),
+                                Ticket = _dbContext.Tickets.Include(i => i.Zone)
+                                    .FirstOrDefault(i => i.Id == item.TicketTypeId),
+                                PeriodicDiscount = _dbContext.PeriodicDiscounts.FirstOrDefault(i =>
+                                    i.StartTime >= DateTime.Now &&
+                                    i.FinishTime <= DateTime.Now),
+                                CanBeUsed = true
+                            };
+                            positionsToOrder.Add(position);
+                            order.Positions.Add(position);
+                        }
                     }
 
                     _dbContext.SaveChanges();
@@ -97,8 +100,8 @@ namespace AquaparkSystemApi.Controllers
                     orderDto.Tickets = positionsToOrder.Select(i => new TicketDto()
                     {
                         Id = i.Id,
-                        Number = i.Number,
                         Name = i.Ticket.Name,
+                        Number = positionsToOrder.Count(j => j.Ticket.Id == i.Ticket.Id),
                         Price = i.Ticket.Price,
                         Zone = new ZoneWithAttractionsInformationDto()
                         {

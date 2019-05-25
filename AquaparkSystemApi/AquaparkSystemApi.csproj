@@ -308,6 +308,10 @@
     <Compile Include="Migrations\201905252316549_HistoryClassesAttributesChanged.Designer.cs">
       <DependentUpon>201905252316549_HistoryClassesAttributesChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905252329161_AmountOfPositionsRemoved.cs" />
+    <Compile Include="Migrations\201905252329161_AmountOfPositionsRemoved.Designer.cs">
+      <DependentUpon>201905252329161_AmountOfPositionsRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
@@ -512,6 +516,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905252316549_HistoryClassesAttributesChanged.resx">
       <DependentUpon>201905252316549_HistoryClassesAttributesChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252329161_AmountOfPositionsRemoved.resx">
+      <DependentUpon>201905252329161_AmountOfPositionsRemoved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
