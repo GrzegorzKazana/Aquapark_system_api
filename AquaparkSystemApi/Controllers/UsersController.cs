@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
@@ -9,6 +10,7 @@ using AquaparkSystemApi.Models.PassedParameters;
 
 namespace AquaparkSystemApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
         private AquaparkDbContext _dbContext;

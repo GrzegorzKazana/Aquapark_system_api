@@ -13,15 +13,6 @@ namespace AquaparkSystemApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-            //var config = new HttpSelfHostConfiguration("http://localhost:8080");
-            //config.Formatters.JsonFormatter.SupportedMediaTypes
-            //    .Add(new MediaTypeHeaderValue("text/html"));
-            //config.Routes.MapHttpRoute(
-            //    "API Default", "api/{controller}/{action}/{id}",
-            //    new { id = RouteParameter.Optional });
-            //config.MessageHandlers.Add(new CustomHeaderHandler());
-            // Web API routes
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Formatting.Indented;
@@ -36,6 +27,7 @@ namespace AquaparkSystemApi
             //config.EnableCors(cors);
             var CorsAttribute = new EnableCorsAttribute("* ", "* ", "* ");
             config.EnableCors(CorsAttribute);
+
             //config.EnableCors(CorsOpt);
             //
             config.Routes.MapHttpRoute(
