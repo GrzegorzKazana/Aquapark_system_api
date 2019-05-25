@@ -287,7 +287,9 @@
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\UserDataDto.cs" />
+    <Compile Include="Models\Dtos\UserLoggedOutDto.cs" />
     <Compile Include="Models\Dtos\ZoneWithTicketsCollectionDto.cs" />
+    <Compile Include="Models\PassedParameters\UserToLogOut.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\AttractionHistory.cs" />

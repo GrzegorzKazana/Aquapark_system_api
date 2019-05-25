@@ -113,6 +113,35 @@ namespace AquaparkSystemApi.Controllers
         }
 
         [AcceptVerbs("POST")]
+        [ActionName("LogOut")]
+        public UserLoggedOutDto LogOut(UserToLogOut user)
+        {
+            bool success = false;
+            string statusMessage = "";
+            try
+            {
+                bool loggedOut = Security.Security.UserTokens.Remove(Security.Security.UserTokens.First(i => i.Value == user.UserToken).Key);
+
+                if (loggedOut)
+                {
+                    statusMessage = "User logged out successfully!";
+                    success = true;
+                }  
+            }
+            catch (Exception e)
+            {
+                success = false;
+                statusMessage = "Something went wrong :(";
+            }
+
+            return new UserLoggedOutDto()
+            {
+                Success = success,
+                Status = statusMessage
+            };
+        }
+
+        [AcceptVerbs("POST")]
         [ActionName("EditUser")]
         public UserEditedPersonalDataDto EditUser(UserToEditPersonalData editedUser)
         {
