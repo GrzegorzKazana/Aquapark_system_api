@@ -275,6 +275,14 @@
     <Compile Include="Migrations\201905062012254_SeedTicketsData2.Designer.cs">
       <DependentUpon>201905062012254_SeedTicketsData2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905251506325_LoginRemoved.cs" />
+    <Compile Include="Migrations\201905251506325_LoginRemoved.Designer.cs">
+      <DependentUpon>201905251506325_LoginRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905251515062_SeedSocialClassDiscounts.cs" />
+    <Compile Include="Migrations\201905251515062_SeedSocialClassDiscounts.Designer.cs">
+      <DependentUpon>201905251515062_SeedSocialClassDiscounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
@@ -451,6 +459,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905062012254_SeedTicketsData2.resx">
       <DependentUpon>201905062012254_SeedTicketsData2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251506325_LoginRemoved.resx">
+      <DependentUpon>201905251506325_LoginRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251515062_SeedSocialClassDiscounts.resx">
+      <DependentUpon>201905251515062_SeedSocialClassDiscounts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

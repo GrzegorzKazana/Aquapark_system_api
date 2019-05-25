@@ -8,8 +8,6 @@ namespace AquaparkSystemApi.Models
     {
         public int Id { get; set; }
         [StringLength(30)]
-        public string Login { get; set; }
-        [StringLength(30)]
         public string Email { get; set; }
         [StringLength(40)]
         public string Password { get; set; }

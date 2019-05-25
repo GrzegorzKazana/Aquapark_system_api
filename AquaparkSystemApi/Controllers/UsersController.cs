@@ -29,14 +29,12 @@ namespace AquaparkSystemApi.Controllers
             string statusMessage = "";
             bool wasUserAdded = false;
 
-            bool doesUserWithGivenLoginExist = _dbContext.Users.Any(i => i.Login == userToRegister.Login 
-            || i.Email == userToRegister.Email );
+            bool doesUserWithGivenLoginExist = _dbContext.Users.Any(i => i.Email == userToRegister.Email);
             if (!doesUserWithGivenLoginExist)
             {
                 _dbContext.Users.Add(
                     new User()
                     {
-                        Login = userToRegister.Login,
                         Name = userToRegister.Name,
                         Surname = userToRegister.Surname,
                         Password = hashedPassword,
@@ -64,6 +62,7 @@ namespace AquaparkSystemApi.Controllers
         public UserLoggedInDto LogIn(UserToLogIn userToLogIn)
         {
             string userToken = "";
+            string email = "";
             string name = "";
             string surname = "";
             bool success = false;
@@ -85,6 +84,7 @@ namespace AquaparkSystemApi.Controllers
                     {
                         Security.Security.UserTokens.Add(user.Id, generatedToken);
                         userToken = generatedToken;
+                        email = user.Email;
                         name = user.Name;
                         surname = user.Surname;
                         success = true;
@@ -103,6 +103,7 @@ namespace AquaparkSystemApi.Controllers
             return new UserLoggedInDto()
             {
                 UserToken = userToken,
+                Email = email,
                 Name = name,
                 Surname = surname,
                 Success = success,
