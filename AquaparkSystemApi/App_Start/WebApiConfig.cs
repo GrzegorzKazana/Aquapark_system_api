@@ -27,7 +27,11 @@ namespace AquaparkSystemApi
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
+
             config.MessageHandlers.Add(new CustomHeaderHandler());
+            //config.EnableCors(new EnableCorsAttribute(Properties.Settings.Default.Cors, "", ""))
+            //config.UseCors(CorsOptions.AllowAll);
+            config.EnableCors();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
