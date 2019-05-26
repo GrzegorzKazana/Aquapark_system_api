@@ -7,6 +7,7 @@ using System.Web.Http.Cors;
 using AquaparkSystemApi.Exceptions;
 using AquaparkSystemApi.Models;
 using AquaparkSystemApi.Models.Dtos;
+using AquaparkSystemApi.Models.PassedParameters;
 
 namespace AquaparkSystemApi.Controllers
 {
@@ -22,15 +23,15 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("SendNewsletter")]
-        public ResultInfoDto SendNewsletter(string userToken, string message)
+        public ResultInfoDto SendNewsletter(EmailPassedParameters emailPassedParameters)
         {
             string status = "";
             bool success = false;
             try
             {
-                if (Security.Security.UserTokens.Any(i => i.Value == userToken))
+                if (Security.Security.UserTokens.Any(i => i.Value == emailPassedParameters.UserToken))
                 {
-                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == userToken).Key;
+                    var userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == emailPassedParameters.UserToken).Key;
 
                     var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
                     if (user == null)
@@ -42,7 +43,7 @@ namespace AquaparkSystemApi.Controllers
 
                     foreach (User userToSendEmail in users)
                     {
-                        Email.SendEmail(userToSendEmail.Email, message, "Newsletter");
+                        Email.SendEmail(userToSendEmail.Email, emailPassedParameters.Message, "Newsletter");
                     }
 
                     success = true;

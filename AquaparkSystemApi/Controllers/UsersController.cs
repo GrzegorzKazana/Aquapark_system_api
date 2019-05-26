@@ -71,7 +71,7 @@ namespace AquaparkSystemApi.Controllers
 
             try
             {
-                User user = _dbContext.Users.FirstOrDefault(i => i.Email == userToLogIn.Email);
+                User user = _dbContext.Users.ToList().FirstOrDefault(i => i.Email == userToLogIn.Email);
                 if (user == null)
                     throw new UserNotFoundException("There is no user with given data.");
 
