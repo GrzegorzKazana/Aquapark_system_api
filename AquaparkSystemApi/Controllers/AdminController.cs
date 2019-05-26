@@ -11,7 +11,7 @@ using AquaparkSystemApi.Models.Dtos;
 namespace AquaparkSystemApi.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AdminController
+    public class AdminController : ApiController
     {
         private AquaparkDbContext _dbContext;
 
@@ -46,7 +46,7 @@ namespace AquaparkSystemApi.Controllers
                     }
 
                     success = true;
-                    status = $"Email sent to: {users.Count} users.";
+                    status = $"Wysłano do: {users.Count} użytkowników.";
                 }
                 else
                 {
