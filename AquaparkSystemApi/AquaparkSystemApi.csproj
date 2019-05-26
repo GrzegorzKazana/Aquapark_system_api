@@ -187,6 +187,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="CustomHeaderHandler.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -340,6 +342,7 @@
     <Compile Include="Models\Dtos\InformationAfterComingIntoZoneDto.cs" />
     <Compile Include="Models\Dtos\InformationAfterComingOutOfZoneDto.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
+    <Compile Include="Models\Dtos\ResultInfoDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\UserDataDto.cs" />
     <Compile Include="Models\Dtos\UserLoggedOutDto.cs" />
