@@ -24,7 +24,7 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("ComeInToZone")]
-        public void ComeInTooZone(ZoneEntry zoneEntry)
+        public void ComeInToZone(ZoneEntry zoneEntry)
         {
 
             try
