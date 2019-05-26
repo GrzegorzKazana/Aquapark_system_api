@@ -317,6 +317,7 @@
       <DependentUpon>201905261049311_SeedNewSocialClassDiscount.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Dtos\InformationDto.cs" />
     <Compile Include="Models\Dtos\PeriodicDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\SocialClassDiscountCollectionDto.cs" />
     <Compile Include="Models\Dtos\UserDataDto.cs" />

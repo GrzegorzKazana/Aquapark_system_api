@@ -79,9 +79,20 @@ namespace AquaparkSystemApi.Controllers
 
                 if (user.Password.Trim() == hashedPassword)
                 {
-                    string generatedToken = Security.Security.GenerateToken(user.Email);
-                    if (Security.Security.UserTokens.All(i => i.Key != user.Id))
+                    string generatedToken = Security.Security.UserTokens.FirstOrDefault(i => i.Key == user.Id).Value;
+                    if (!string.IsNullOrEmpty(generatedToken))
                     {
+                        userToken = generatedToken;
+                        email = user.Email;
+                        name = user.Name;
+                        surname = user.Surname;
+                        success = true;
+                        statusMessage = "";
+                        isAdmin = user.IsAdmin;
+                    }
+                    else if (Security.Security.UserTokens.All(i => i.Key != user.Id))
+                    {
+                        generatedToken = Security.Security.GenerateToken(user.Email);
                         Security.Security.UserTokens.Add(user.Id, generatedToken);
                         userToken = generatedToken;
                         email = user.Email;

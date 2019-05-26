@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using AquaparkSystemApi.Exceptions;
@@ -24,11 +25,17 @@ namespace AquaparkSystemApi.Controllers
 
         [AcceptVerbs("POST")]
         [ActionName("ComeInToZone")]
-        public void ComeInToZone(ZoneEntry zoneEntry)
+        public InformationDto ComeInToZone(ZoneEntry zoneEntry)
         {
-
+            InformationDto result = new InformationDto()
+            {
+                Status = "Something went wrong.",
+                Success = false
+            };
             try
             {
+                bool success = false;
+                string status = "";
                 double currentHour = DateTime.Now.Hour;
                 double currentMinute = DateTime.Now.Minute;
                 if (currentMinute > 0)
@@ -37,7 +44,7 @@ namespace AquaparkSystemApi.Controllers
 
                 if (Security.Security.UserTokens.Any(i => i.Value == zoneEntry.UserToken) || zoneEntry.UserToken == string.Empty)
                 {
-                    Position positionAvailableForZone;
+                    List<Position> positionsAvailableForZone = new List<Position>();
                     int userId = -1;
                     if (zoneEntry.UserToken != string.Empty)
                     {
@@ -48,30 +55,46 @@ namespace AquaparkSystemApi.Controllers
                             throw new UserNotFoundException("There is no user with given data.");
                         }
 
-                        positionAvailableForZone = _dbContext.Orders.Where(i => i.User.Id == userId).
-                            SelectMany(i => i.Positions.Where(j => j.Ticket.Zone.Id == zoneEntry.ZoneId && j.CanBeUsed &&
-                                                                   j.Ticket.StartHour <= currentHour && j.Ticket.EndHour >= currentHour))
-                            .FirstOrDefault();
+                        positionsAvailableForZone = _dbContext.Orders.Where(i => i.User.Id == userId).SelectMany(i =>
+                            i.Positions.Where(j => j.Ticket.Zone.Id == zoneEntry.ZoneId && j.CanBeUsed &&
+                                                   j.Ticket.StartHour <= currentHour &&
+                                                   j.Ticket.EndHour >= currentHour)).ToList();
                     }
                     else
                     {
-                        positionAvailableForZone = _dbContext.Orders.Where(i => i.UserData.Email == zoneEntry.Email)
+                        positionsAvailableForZone = _dbContext.Orders.Where(i => i.UserData.Email == zoneEntry.Email)
                             .SelectMany(
                                 i => i.Positions.Where(j => j.Ticket.Zone.Id == zoneEntry.ZoneId && j.CanBeUsed && 
                                                             j.Ticket.StartHour <= currentHour && j.Ticket.EndHour >= currentHour))
-                            .FirstOrDefault();
+                            .ToList();
                     }
 
+                    if (positionsAvailableForZone.Any(i =>
+                        _dbContext.ZoneHistories.Count(j => j.FinishTime == null && j.Id == i.Id) > 0))
+                    {
 
+                        throw new Exception("This operation is not allowed. You are already in different zone!");
+                    }
+                    else if (positionsAvailableForZone.Count == 0)
+                    {
+                        throw new Exception("You don't have required ticket.");
+                    }
+
+                    Position position = positionsAvailableForZone.FirstOrDefault();
+                    Zone zoneToEnter = _dbContext.Zones.FirstOrDefault(i => i.Id == zoneEntry.ZoneId);
                     _dbContext.ZoneHistories.Add(new ZoneHistory()
                     {
-                        Position = positionAvailableForZone,
+                        Position = position,
                         StartTime = DateTime.Now,
-                        Zone = _dbContext.Zones.FirstOrDefault(i=> i.Id == zoneEntry.ZoneId)
+                        Zone = zoneToEnter
                     });
-                    positionAvailableForZone.CanBeUsed = false;
+                    position.CanBeUsed = false;
 
                     _dbContext.SaveChanges();
+                    status = zoneToEnter.Name;
+                    success = true;
+                    result.Success = success;
+                    result.Status = status;
                 }
                 else
                 {
@@ -80,10 +103,10 @@ namespace AquaparkSystemApi.Controllers
             }
             catch (Exception ex)
             {
-                
+                result.Status = ex.Message;
             }
 
-            
+            return result;
         }
 
         [AcceptVerbs("POST")]
