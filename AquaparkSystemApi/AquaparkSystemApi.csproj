@@ -332,6 +332,10 @@
     <Compile Include="Migrations\201905262042179_SeedFinalTickets.Designer.cs">
       <DependentUpon>201905262042179_SeedFinalTickets.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs" />
+    <Compile Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.Designer.cs">
+      <DependentUpon>201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\InformationAfterComingIntoZoneDto.cs" />
     <Compile Include="Models\Dtos\InformationAfterComingOutOfZoneDto.cs" />
@@ -556,6 +560,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905262042179_SeedFinalTickets.resx">
       <DependentUpon>201905262042179_SeedFinalTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.resx">
+      <DependentUpon>201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

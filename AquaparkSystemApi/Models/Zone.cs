@@ -8,6 +8,7 @@ namespace AquaparkSystemApi.Models
         public int Id { get; set; }
         [StringLength(30)]
         public string Name { get; set; }
+        public int MaxAmountOfPeople { get; set; }
         public virtual ICollection<Attraction> Attractions { get; set; }
     }
 }
