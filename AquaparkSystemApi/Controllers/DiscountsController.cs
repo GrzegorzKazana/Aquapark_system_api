@@ -54,9 +54,19 @@ namespace AquaparkSystemApi.Controllers
                         if (socialClassDiscounts.ToList().SingleOrDefault(x => x.Id == s.Id) == null)
                         {
                             discountsToRemove.Add(s);
+
+                            var position = _dbContext.Positions.ToList().SingleOrDefault(x => x.Id == s.Id);
+                            if (position != null)
+                            {
+                                position.SocialClassDiscount = null;
+                                _dbContext.SaveChanges();
+                            }
                         }
                     });
                     _dbContext.SocialClassDiscounts.RemoveRange(discountsToRemove);
+
+
+
                     _dbContext.SaveChanges();
 
                     var discountsToAdd = new List<SocialClassDiscount>();
@@ -88,7 +98,7 @@ namespace AquaparkSystemApi.Controllers
                     throw new Exception("User identification failed.");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return this.GetAllSocialClassDiscounts();
             }
