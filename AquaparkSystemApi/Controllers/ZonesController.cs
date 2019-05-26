@@ -37,73 +37,94 @@ namespace AquaparkSystemApi.Controllers
                         throw new UserNotFoundException("There is no user with given data.");
                     }
 
-                    // remove Zone references
-
-                    _dbContext.Attractions.ToList().ForEach(x => x.Zone = null);
-                    _dbContext.ZoneHistories.ToList().ForEach(x => x.Zone = null);
-                    _dbContext.Tickets.ToList().ForEach(x => x.Zone = null);
-                    _dbContext.SaveChanges();
-
-                    // remove Ticket references
-
-                    _dbContext.Positions.ToList().ForEach(x => x.Ticket = null);
-                    _dbContext.SaveChanges();
-
-                    // remove all records from Zone and Ticket table
-
-                    _dbContext.Zones.RemoveRange(_dbContext.Zones);
-                    _dbContext.Tickets.RemoveRange(_dbContext.Tickets);
-                    _dbContext.SaveChanges();
-
-                    // Add new records to Zone table
-
-                    var zones = zonesWithTickets.Select(x => new Zone()
-                    {
-                        Name = x.ZoneName
-                    });
-                    _dbContext.Zones.AddRange(zones);
-                    _dbContext.SaveChanges();
-
-                    // Add new records to Ticket table
 
                     var tickets = new List<Ticket>();
-                    zonesWithTickets
+                    zoneWithTicketsCollectionDto
+                        .ZonesWithTicketsDto
                         .ToList()
-                        .ForEach(z => z.TicketTypes
-                            .ToList()
-                            .ForEach(t => tickets.Add(new Ticket()
+                        .ForEach(z =>
+                        {
+                            // remove
+                            var ticketsToRemove = new List<Ticket>();
+                            _dbContext.Tickets.Where(t => t.Zone.Id == z.ZoneId).ToList().ForEach(t =>
                             {
-                                Name = t.TicketTypeName,
-                                Price = t.Price,
-                                Zone = _dbContext.Zones
-                                        .Where(j => j.Name == z.ZoneName)
-                                        .FirstOrDefault()
-                                        ?? new Zone()
-                                        {
-                                            Name = z.ZoneName
-                                        },
-                                PeriodicDiscount = t.PeriodDiscount == null
-                                    ? null : new PeriodicDiscount()
+                                if (z.TicketTypes.ToList().SingleOrDefault(x => x.TicketTypeId == t.Id) == null)
+                                {
+                                    ticketsToRemove.Add(t);
+                                }
+                            });
+                            _dbContext.Tickets.RemoveRange(ticketsToRemove);
+
+                            // add or modify
+                            z.TicketTypes
+                            .ToList()
+                            .ForEach(tt =>
+                            {
+                                if (_dbContext.Tickets.Where(t => t.Id == tt.TicketTypeId).FirstOrDefault() == null)
+                                {
+                                    tickets.Add(new Ticket()
                                     {
-                                        StartTime = t.PeriodDiscount.StartTimeDate,
-                                        FinishTime = t.PeriodDiscount.FinishTimeDate,
-                                        Value = t.PeriodDiscount.Value
-                                    },
-                                StartHour = t.StartHour,
-                                EndHour = t.EndHour,
-                                Days = t.Days,
-                                Months = t.Months
-                            })
-                            ));
+                                        Id = tt.TicketTypeId,
+                                        Name = tt.TicketTypeName,
+                                        Price = tt.Price,
+                                        Zone = z != null ? _dbContext.Zones.SingleOrDefault(zz => zz.Id == z.ZoneId) : null,
+                                        PeriodicDiscount = tt.PeriodDiscount != null ? _dbContext.PeriodicDiscounts.SingleOrDefault(p => p.Id == tt.PeriodDiscount.Id) : null,
+                                        StartHour = tt.StartHour,
+                                        EndHour = tt.EndHour,
+                                        Days = tt.Days,
+                                        Months = tt.Months,
+                                    });
+                                }
+                                else
+                                {
+                                    var ticket = _dbContext.Tickets.SingleOrDefault(t => t.Id == tt.TicketTypeId);
+                                    if (ticket != null)
+                                    {
+                                        ticket.Id = tt.TicketTypeId;
+                                        if (ticket.Name != null)
+                                        {
+                                            ticket.Name = tt.TicketTypeName;
+                                        }
+                                        ticket.Price = tt.Price;
+                                        if (ticket.Zone != null)
+                                        {
+                                            ticket.Zone = new Zone()
+                                            {
+                                                Id = z.ZoneId,
+                                                Name = z.ZoneName
+                                            };
+                                        }
+                                        if (ticket.PeriodicDiscount != null)
+                                        {
+                                            ticket.PeriodicDiscount = new PeriodicDiscount()
+                                            {
+                                                Id = tt.PeriodDiscount.Id,
+                                                StartTime = tt.PeriodDiscount.StartTimeDate,
+                                                FinishTime = tt.PeriodDiscount.FinishTimeDate,
+                                                Value = tt.PeriodDiscount.Value
+                                            };
+                                        }
+                                        ticket.StartHour = tt.StartHour;
+                                        ticket.EndHour = tt.EndHour;
+                                        ticket.Days = tt.Days;
+                                        ticket.Months = tt.Months;
+
+                                        _dbContext.SaveChanges();
+                                    }
+                                }
+                            });
+                        }
+                        );
                     _dbContext.Tickets.AddRange(tickets);
                     _dbContext.SaveChanges();
+
                 }
                 else
                 {
                     throw new Exception("User identification failed.");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return this.GetAllZonesWithTickets();
             }
