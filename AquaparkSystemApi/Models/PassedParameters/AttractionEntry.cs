@@ -7,7 +7,10 @@ namespace AquaparkSystemApi.Models.PassedParameters
 {
     public class AttractionEntry
     {
-        public ZoneEntry ZoneEntry { get; set; }
+        public string UserToken { get; set; }
+        public string Email { get; set; }
         public int AttractionId { get; set; }
+        public int PositionId { get; set; }
+        public int ZoneId { get; set; }
     }
 }

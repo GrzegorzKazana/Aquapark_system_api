@@ -195,104 +195,79 @@ namespace AquaparkSystemApi.Controllers
             return result;
         }
 
-        //[AcceptVerbs("POST")]
-        //[ActionName("ComeInToZone")]
-        //public InformationAfterComingIntoZoneDto ComeInToAttraction(AttractionEntry attractionEntry)
-        //{
-        //    InformationAfterComingIntoZoneDto result = new InformationAfterComingIntoZoneDto()
-        //    {
-        //        Status = "Something went wrong.",
-        //        Success = false
-        //    };
-        //    try
-        //    {
-        //        bool success = false;
-        //        string status = "";
-        //        double currentHour = DateTime.Now.Hour;
-        //        double currentMinute = DateTime.Now.Minute;
-        //        if (currentMinute > 0)
-        //            currentHour += 1;
-        //        currentHour %= 24;
+        [AcceptVerbs("POST")]
+        [ActionName("ComeInToAttraction")]
+        public void ComeInToAttraction(AttractionEntry attractionEntry)
+        {
+            InformationAfterComingIntoZoneDto result = new InformationAfterComingIntoZoneDto()
+            {
+                Status = "Something went wrong.",
+                Success = false
+            };
+            try
+            {
+                bool success = false;
+                string status = "";
+                double currentHour = DateTime.Now.Hour;
+                double currentMinute = DateTime.Now.Minute;
+                if (currentMinute > 0)
+                    currentHour += 1;
+                currentHour %= 24;
 
-        //        if (Security.Security.UserTokens.Any(i => i.Value == attractionEntry.ZoneEntry.UserToken) 
-        //            || attractionEntry.ZoneEntry.UserToken == string.Empty || attractionEntry.ZoneEntry.UserToken == "a")
-        //        {
-        //            List<Position> positionsAvailableForZone = new List<Position>();
-        //            int userId = -1;
-        //            if (attractionEntry.ZoneEntry.UserToken != string.Empty && attractionEntry.ZoneEntry.UserToken != "a")
-        //            {
-        //                userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == attractionEntry.attractionEntry.ZoneEntry.UserToken).Key;
-        //                var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
-        //                if (user == null)
-        //                {
-        //                    throw new UserNotFoundException("There is no user with given data.");
-        //                }
+                if (Security.Security.UserTokens.Any(i => i.Value == attractionEntry.UserToken)
+                    || attractionEntry.UserToken == string.Empty || attractionEntry.UserToken == "a")
+                {
+                    List<Position> positionsAvailableForZone = new List<Position>();
+                    int userId = -1;
+                    if (attractionEntry.UserToken != string.Empty && attractionEntry.UserToken != "a")
+                    {
+                        userId = Security.Security.UserTokens.FirstOrDefault(i => i.Value == attractionEntry.UserToken).Key;
+                        var user = _dbContext.Users.FirstOrDefault(i => i.Id == userId);
+                        if (user == null)
+                        {
+                            throw new UserNotFoundException("There is no user with given data.");
+                        }
 
-        //                positionsAvailableForZone = _dbContext.Orders.Where(i => i.User.Id == userId).SelectMany(i =>
-        //                    i.Positions.Where(j => j.Ticket.Zone.Id == attractionEntry.ZoneEntry.ZoneId && !j.CanBeUsed &&
-        //                                           j.Ticket.StartHour <= currentHour &&
-        //                                           j.Ticket.EndHour >= currentHour)).ToList();
-        //            }
-        //            else
-        //            {
-        //                positionsAvailableForZone = _dbContext.Orders.Where(i => i.UserData.Email == attractionEntry.ZoneEntry.Email)
-        //                    .SelectMany(
-        //                        i => i.Positions.Where(j => j.Ticket.Zone.Id == attractionEntry.ZoneEntry.ZoneId && !j.CanBeUsed &&
-        //                                                    j.Ticket.StartHour <= currentHour && j.Ticket.EndHour >= currentHour))
-        //                    .ToList();
-        //            }
+                        //positionsAvailableForZone = _dbContext.Orders.Where(i => i.User.Id == userId).SelectMany(i =>
+                        //    i.Positions.Where(j => j.Ticket.Zone.Id == attractionEntry.ZoneEntry.ZoneId && !j.CanBeUsed &&
+                        //                           j.Ticket.StartHour <= currentHour &&
+                        //                           j.Ticket.EndHour >= currentHour)).ToList();
+                    }
+                    else
+                    {
+                        //positionsAvailableForZone = _dbContext.Orders.Where(i => i.UserData.Email == attractionEntry.ZoneEntry.Email)
+                        //    .SelectMany(
+                        //        i => i.Positions.Where(j => j.Ticket.Zone.Id == attractionEntry.ZoneEntry.ZoneId && !j.CanBeUsed &&
+                        //                                    j.Ticket.StartHour <= currentHour && j.Ticket.EndHour >= currentHour))
+                        //    .ToList();
+                    }
 
+                    AttractionHistory attractionHistory = new AttractionHistory()
+                    {
+                        Position = _dbContext.Positions.FirstOrDefault(i => i.Id == attractionEntry.PositionId),
+                        Attraction = _dbContext.Attractions.Include(i => i.Zone).FirstOrDefault(i => i.Id == attractionEntry.AttractionId),
+                        StartTime = DateTime.Now
+                    };
+                    _dbContext.AttractionHistories.Add(attractionHistory);
+                    _dbContext.SaveChanges();
 
-        //            if (positionsAvailableForZone.Any(i =>
-        //                _dbContext.AttractionHistories.Count(j => j.FinishTime == null && j.Id == i.Id) > 0))
-        //            {
-
-        //                throw new Exception("This operation is not allowed. You are already in different zone!");
-        //            }
-        //            else if (positionsAvailableForZone.Count == 0)
-        //            {
-        //                throw new Exception("You don't have required ticket.");
-        //            }
-
-                    
-        //            Zone zoneToEnter = _dbContext.Zones.FirstOrDefault(i => i.Id == attractionEntry.ZoneEntry.ZoneId);
-        //            foreach (Position position in positionsAvailableForZone)
-        //            {
-
-        //            }
-        //            _dbContext.ZoneHistories.Where(i=> i.Position.Id == )
-        //            _dbContext.ZoneHistories.Add(new ZoneHistory()
-        //            {
-        //                Position = position,
-        //                StartTime = DateTime.Now,
-        //                Zone = zoneToEnter
-        //            });
-        //            _dbContext.AttractionHistories.Add(new AttractionHistory()
-        //            {
-        //                P
-        //            });
-        //            position.CanBeUsed = false;
-
-        //            _dbContext.SaveChanges();
-        //            status = zoneToEnter.Name;
-        //            success = true;
-        //            result.Success = success;
-        //            result.Status = status;
-        //            result.ZoneId = zoneToEnter.Id;
-        //            result.PositionId = position.Id;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("User identification failed.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.Status = ex.Message;
-        //    }
-
-        //    return result;
-        //}
+                    status = attractionHistory.Attraction.Name;
+                    success = true;
+                    result.Success = success;
+                    result.Status = status;
+                    result.ZoneId = attractionHistory.Attraction.Zone.Id;
+                    result.PositionId = attractionHistory.Position.Id;
+                }
+                else
+                {
+                    throw new Exception("User identification failed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Status = ex.Message;
+            }
+        }
 
         //[AcceptVerbs("POST")]
         //[ActionName("ComeInToAttraction")]
@@ -307,7 +282,8 @@ namespace AquaparkSystemApi.Controllers
         //            currentHour += 1;
         //        currentHour %= 24;
 
-        //        if (Security.Security.UserTokens.Any(i => i.Value == zoneEntry.UserToken) || zoneEntry.UserToken == string.Empty)
+        //        if (Security.Security.UserTokens.Any(i => i.Value == zoneEntry.UserToken) || zoneEntry.UserToken == string.Empty || 
+        //            attractionEntry.ZoneEntry.UserToken == "a")
         //        {
         //            Position positionAvailableForZone;
         //            int userId = -1;
