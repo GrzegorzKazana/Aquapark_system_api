@@ -26,10 +26,13 @@ namespace AquaparkSystemApi
         public DbSet<ZoneHistory> ZoneHistories { get; set; }
         public DbSet<UserData> UsersData { get; set; }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            Database.SetInitializer<AquaparkDbContext>(null);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
+
