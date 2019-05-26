@@ -132,7 +132,7 @@ namespace AquaparkSystemApi.Controllers
                     Id = i.Id,
                     SocialClassName = i.SocialClassName,
                     Value = i.Value
-                }).ToList();
+                }).OrderBy(i => i.Value).ToList();
             }
             catch (Exception)
             {
