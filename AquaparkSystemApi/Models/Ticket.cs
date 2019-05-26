@@ -5,7 +5,7 @@ namespace AquaparkSystemApi.Models
     public class Ticket
     {
         public int Id { get; set; }
-        [StringLength(30)]
+        [StringLength(50)]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public Zone Zone { get; set; }
