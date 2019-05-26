@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AquaparkSystemApi.Models.Dtos
 {
-    public class InformationDto
+    public class InformationAfterComingOutOfZoneDto
     {
         public bool Success { get; set; }
         public string Status { get; set; }
