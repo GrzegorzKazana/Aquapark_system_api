@@ -324,17 +324,17 @@
     <Compile Include="Migrations\201905262027441_SeedNewZones.Designer.cs">
       <DependentUpon>201905262027441_SeedNewZones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905262028331_SeedNewAttractions.cs" />
-    <Compile Include="Migrations\201905262028331_SeedNewAttractions.Designer.cs">
-      <DependentUpon>201905262028331_SeedNewAttractions.cs</DependentUpon>
+    <Compile Include="Migrations\201905262124301_SeedNewAttractions.cs" />
+    <Compile Include="Migrations\201905262124301_SeedNewAttractions.Designer.cs">
+      <DependentUpon>201905262124301_SeedNewAttractions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905262042179_SeedFinalTickets.cs" />
-    <Compile Include="Migrations\201905262042179_SeedFinalTickets.Designer.cs">
-      <DependentUpon>201905262042179_SeedFinalTickets.cs</DependentUpon>
+    <Compile Include="Migrations\201905262125583_SeedFinalTickets.cs" />
+    <Compile Include="Migrations\201905262125583_SeedFinalTickets.Designer.cs">
+      <DependentUpon>201905262125583_SeedFinalTickets.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs" />
-    <Compile Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.Designer.cs">
-      <DependentUpon>201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
+    <Compile Include="Migrations\201905262126578_AddedMaxAmountOfPeopleToZonesAndAttractions.cs" />
+    <Compile Include="Migrations\201905262126578_AddedMaxAmountOfPeopleToZonesAndAttractions.Designer.cs">
+      <DependentUpon>201905262126578_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dtos\InformationAfterComingIntoZoneDto.cs" />
@@ -555,14 +555,14 @@
     <EmbeddedResource Include="Migrations\201905262027441_SeedNewZones.resx">
       <DependentUpon>201905262027441_SeedNewZones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905262028331_SeedNewAttractions.resx">
-      <DependentUpon>201905262028331_SeedNewAttractions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905262124301_SeedNewAttractions.resx">
+      <DependentUpon>201905262124301_SeedNewAttractions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905262042179_SeedFinalTickets.resx">
-      <DependentUpon>201905262042179_SeedFinalTickets.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905262125583_SeedFinalTickets.resx">
+      <DependentUpon>201905262125583_SeedFinalTickets.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.resx">
-      <DependentUpon>201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905262126578_AddedMaxAmountOfPeopleToZonesAndAttractions.resx">
+      <DependentUpon>201905262126578_AddedMaxAmountOfPeopleToZonesAndAttractions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

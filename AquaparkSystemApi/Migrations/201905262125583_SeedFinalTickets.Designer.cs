@@ -7,13 +7,13 @@ namespace AquaparkSystemApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedMaxAmountOfPeopleToZonesAndAttractions : IMigrationMetadata
+    public sealed partial class SeedFinalTickets : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedMaxAmountOfPeopleToZonesAndAttractions));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedFinalTickets));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905262051557_AddedMaxAmountOfPeopleToZonesAndAttractions"; }
+            get { return "201905262125583_SeedFinalTickets"; }
         }
         
         string IMigrationMetadata.Source
