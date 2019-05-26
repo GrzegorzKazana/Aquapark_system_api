@@ -23,7 +23,7 @@ namespace AquaparkSystemApi.Controllers
         }
 
         [AcceptVerbs("POST")]
-        [ActionName("ComeInTooZone")]
+        [ActionName("ComeInToZone")]
         public void ComeInTooZone(ZoneEntry zoneEntry)
         {
 
