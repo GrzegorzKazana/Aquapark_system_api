@@ -37,12 +37,50 @@ namespace AquaparkSystemApi.Controllers
                         throw new UserNotFoundException("There is no user with given data.");
                     }
 
-                    _dbContext.Positions.ToList().ForEach(x => x.SocialClassDiscount = null);
+                    //_dbContext.Positions.ToList().ForEach(x => x.SocialClassDiscount = null);
 
+                    //_dbContext.SaveChanges();
+
+                    //_dbContext.SocialClassDiscounts.RemoveRange(_dbContext.SocialClassDiscounts);
+                    //_dbContext.SocialClassDiscounts.AddRange(socialClassDiscounts);
+                    //_dbContext.SaveChanges();
+
+                    //==================
+
+                    // remove
+                    var discountsToRemove = new List<SocialClassDiscount>();
+                    _dbContext.SocialClassDiscounts.ToList().ForEach(s =>
+                    {
+                        if (socialClassDiscounts.ToList().SingleOrDefault(x => x.Id == s.Id) == null)
+                        {
+                            discountsToRemove.Add(s);
+                        }
+                    });
+                    _dbContext.SocialClassDiscounts.RemoveRange(discountsToRemove);
                     _dbContext.SaveChanges();
 
-                    _dbContext.SocialClassDiscounts.RemoveRange(_dbContext.SocialClassDiscounts);
-                    _dbContext.SocialClassDiscounts.AddRange(socialClassDiscounts);
+                    var discountsToAdd = new List<SocialClassDiscount>();
+                    socialClassDiscountCollectionDto.SocialClassDiscounts.ToList().ForEach(s =>
+                    {
+                        // add
+                        if (_dbContext.SocialClassDiscounts.ToList().SingleOrDefault(x => x.Id == s.Id) == null)
+                        {
+                            discountsToAdd.Add(s);
+                        }
+                        // modify
+                        else
+                        {
+                            var discount = _dbContext.SocialClassDiscounts.SingleOrDefault(x => x.Id == s.Id);
+                            if (discount != null)
+                            {
+                                discount.Id = s.Id;
+                                discount.SocialClassName = s.SocialClassName;
+                                discount.Value = s.Value;
+                                _dbContext.SaveChanges();
+                            }
+                        }
+                    });
+                    _dbContext.SocialClassDiscounts.AddRange(discountsToAdd);
                     _dbContext.SaveChanges();
                 }
                 else
