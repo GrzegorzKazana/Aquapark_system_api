@@ -8,19 +8,28 @@ namespace AquaparkSystemApi
 {
     public static class Email
     {
-        public static void SendEmail(string email, string bodyMessage, string bodySubject)
+        public static bool SendEmail(string email, string bodyMessage, string bodySubject)
         {
-            MailMessage mail = new MailMessage("jakiekieszonkowe@gmail.com", email);
-            SmtpClient client = new SmtpClient();
-            client.EnableSsl = true;
-            client.Port = 25;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("aquaparksupersystem@gmail.com", "asdzxcasd");
-            client.Host = "smtp.gmail.com";
-            mail.Subject = bodySubject;
-            mail.Body = bodyMessage;
-            client.Send(mail);
+            try
+            {
+                MailMessage mail = new MailMessage("jakiekieszonkowe@gmail.com", email);
+                SmtpClient client = new SmtpClient();
+                client.EnableSsl = true;
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new System.Net.NetworkCredential("aquaparksupersystem@gmail.com", "asdzxcasd");
+                client.Host = "smtp.gmail.com";
+                mail.Subject = bodySubject;
+                mail.Body = bodyMessage;
+                client.Send(mail);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
     }
 }

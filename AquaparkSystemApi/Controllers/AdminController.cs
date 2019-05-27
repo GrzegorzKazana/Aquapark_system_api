@@ -41,13 +41,15 @@ namespace AquaparkSystemApi.Controllers
 
                     List<User> users = _dbContext.Users.ToList();
 
+                    int emailSentCounter = 0;
                     foreach (User userToSendEmail in users)
                     {
-                        Email.SendEmail(userToSendEmail.Email, emailPassedParameters.Message, "Newsletter");
+                        if (Email.SendEmail(userToSendEmail.Email, emailPassedParameters.Message, "Newsletter"))
+                            emailSentCounter++;
                     }
 
                     success = true;
-                    status = $"Wysłano do: {users.Count} użytkowników.";
+                    status = $"Wysłano do {emailSentCounter} użytkowników.";
                 }
                 else
                 {
