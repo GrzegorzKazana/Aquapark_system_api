@@ -164,16 +164,16 @@ namespace AquaparkSystemApi.Controllers
                 {
                     ZoneId = i.Id,
                     Name = i.Name,
-                    AmountOfPeople = _dbContext.ZoneHistories.Count(j=> j.Id == i.Id && j.FinishTime == null),
-                    OccupancyRatio = _dbContext.ZoneHistories.Count(j => j.Id == i.Id && j.FinishTime == null)/(double)i.MaxAmountOfPeople,
+                    AmountOfPeople = _dbContext.ZoneHistories.Count(j=> j.Zone.Id == i.Id && j.FinishTime == null),
+                    OccupancyRatio = _dbContext.ZoneHistories.Count(j => j.Zone.Id == i.Id && j.FinishTime == null)/(double)i.MaxAmountOfPeople,
                     Attractions = _dbContext.Attractions.
                         Where(j => j.Zone.Id == i.Id).
                         Select(j => new AttractionPrimaryInformationDto()
                         {
                             AttractionId = j.Id,
                             Name = j.Name,
-                            AmountOfPeople = _dbContext.AttractionHistories.Count(k => k.Id == j.Id && k.FinishTime == null),
-                            OccupancyRatio = _dbContext.AttractionHistories.Count(k => k.Id == j.Id && k.FinishTime == null)/(double)j.MaxAmountOfPeople
+                            AmountOfPeople = _dbContext.AttractionHistories.Count(k => k.Attraction.Id == j.Id && k.FinishTime == null),
+                            OccupancyRatio = _dbContext.AttractionHistories.Count(k => k.Attraction.Id == j.Id && k.FinishTime == null)/(double)j.MaxAmountOfPeople
                         })
                 }).ToList();
             }
