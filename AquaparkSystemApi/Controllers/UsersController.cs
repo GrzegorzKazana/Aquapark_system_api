@@ -181,6 +181,7 @@ namespace AquaparkSystemApi.Controllers
                     userToken = editedUser.UserToken;
                     success = true;
                     statusMessage = "";
+                    _dbContext.SaveChangesAsync();
                 }
                 else
                 {
