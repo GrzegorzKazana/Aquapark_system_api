@@ -388,7 +388,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -418,6 +417,15 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="static\css\2.536f1d1e.chunk.css" />
+    <Content Include="static\css\main.0a1ca17a.chunk.css" />
+    <Content Include="static\js\2.631d9767.chunk.js" />
+    <Content Include="static\js\main.13062e04.chunk.js" />
+    <Content Include="static\js\runtime~main.a8a9905a.js" />
+    <Content Include="favicon.ico" />
+    <None Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\precache-manifest.6f85cb9df801e38046cde3bd19cafde9.js" />
+    <Content Include="Views\Home\service-worker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -429,9 +437,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="static\css\2.536f1d1e.chunk.css.map" />
+    <Content Include="static\css\main.0a1ca17a.chunk.css.map" />
+    <Content Include="static\js\2.631d9767.chunk.js.map" />
+    <Content Include="static\js\main.13062e04.chunk.js.map" />
+    <Content Include="static\js\runtime~main.a8a9905a.js.map" />
+    <Content Include="Views\Home\asset-manifest.json" />
+    <Content Include="Views\Home\manifest.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
